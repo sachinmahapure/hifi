@@ -81,14 +81,13 @@ QUrl defaultScriptsLocation() {
 #elif defined(Q_OS_OSX)
     QString path = QCoreApplication::applicationDirPath() + "/../Resources/scripts";
 #elif defined (ANDROID) 
-    QString path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation); // + "/scripts";
+    QString path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/scripts";
 #else
     QString path = QCoreApplication::applicationDirPath() + "/scripts";
 #endif
 
 #if defined(ANDROID) 
-    QDir dirInfo(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
-    return QUrl::fromLocalFile(dirInfo.canonicalPath() + "/scripts");
+    return QUrl::fromLocalFile(path);
 #else
     QFileInfo fileInfo(path);
     return QUrl::fromLocalFile(fileInfo.canonicalFilePath());    
